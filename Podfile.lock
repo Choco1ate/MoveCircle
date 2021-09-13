@@ -1,0 +1,26 @@
+PODS:
+  - pop (1.0.12)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+
+DEPENDENCIES:
+  - pop
+  - ReactiveCocoa (~> 2.5)
+
+SPEC REPOS:
+  trunk:
+    - pop
+    - ReactiveCocoa
+
+SPEC CHECKSUMS:
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+
+PODFILE CHECKSUM: 8f2dc852ae624efe0db1286f1e01a9ae1c99d3ed
+
+COCOAPODS: 1.10.1
