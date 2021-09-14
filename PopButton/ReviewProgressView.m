@@ -30,6 +30,8 @@
 @property (nonatomic, assign) NSInteger pointSize;
 @property (nonatomic, assign) CGFloat pointX;
 @property (nonatomic, assign) CGFloat pointY;
+@property (nonatomic, strong) UILabel  *labelStatus; // 学习状态
+@property (nonatomic, strong) UILabel  *labelCount; // 学习状态
 @end
 
 @implementation ReviewProgressView
@@ -143,7 +145,23 @@
     [_btnFinish setBackgroundImage:imageFinish forState:UIControlStateNormal];
     _btnFinish.alpha = 1;
     [self addSubview:self.btnFinish];
-}
+    
+    // 学习状态
+    UIFont *fontStatus = [UIFont systemFontOfSize:13];
+    self.labelStatus = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, centerView.bounds.size.width, fontStatus.lineHeight)];
+    self.labelStatus.textColor = RCColorWithValue(0x333333);
+    self.labelStatus.textAlignment = NSTextAlignmentCenter;
+    self.labelStatus.font = fontStatus;
+    self.labelStatus.text = @"今日已复习";
+    [centerView addSubview:self.labelStatus];
+    
+    // 学习数
+    UIFont *fontCount = [UIFont fontWithName:@"PingFangSC-Semibold" size:40];
+    self.labelCount = [[UILabel alloc]initWithFrame:CGRectMake(25, CGRectGetMaxY(self.labelStatus.frame), centerView.bounds.size.width - 50, fontCount.lineHeight)];
+    self.labelCount.textColor = RCColorWithValue(0x333333);
+    self.labelCount.textAlignment = NSTextAlignmentCenter;
+    self.labelCount.font = fontCount;
+    [centerView addSubview:self.labelCount];}
 
 - (void)showFinish {
     UIImage *imageFinish = [UIImage imageNamed:@"progress_finish"];
@@ -176,31 +194,6 @@
         animation.values = values;
         [self.btnFinish.layer addAnimation:animation forKey:nil];
     }];
-    
-//    [UIView animateWithDuration:2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//        self.btnFinish.alpha = 0.9;
-//        _btnFinish.frame = CGRectMake(x1, y1, btnWidth, btnHeight);
-//    } completion:^(BOOL finished) {
-//        self.btnFinish.alpha = 1;
-//
-//        [UIView animateWithDuration:0.1 animations:^{
-//            self.btnFinish.frame = CGRectMake(x2, y2, btnWidthB, btnHeightB);
-//        } completion:^(BOOL finished) {
-//            [UIView animateWithDuration:0.1 animations:^{
-//                self.btnFinish.frame = CGRectMake(x1, y1, btnWidth, btnHeight);
-//            } completion:^(BOOL finished) {
-//                [UIView animateWithDuration:0.1 animations:^{
-//                    self.btnFinish.frame = CGRectMake(x2, y2, btnWidthB, btnHeightB);
-//                } completion:^(BOOL finished) {
-//                    [UIView animateWithDuration:0.1 animations:^{
-//                        self.btnFinish.frame = CGRectMake(x1, y1, btnWidth, btnHeight);
-//                    } completion:^(BOOL finished) {
-//
-//                    }];
-//                }];
-//            }];
-//        }];
-//    }];
 }
 
 - (void)layoutSubviews
@@ -226,10 +219,14 @@
 #pragma mark - Public Method
 
 /// Update daya
-/// @param score 已学数
-/// @param totalScore 单词总数
-- (void)updateScore:(NSInteger)score totalScore:(NSInteger)totalScore {
+/// @param count 已学数
+/// @param total 单词总数
+- (void)updateCount:(NSInteger)count total:(NSInteger)total{
+    self.labelCount.text = [NSString stringWithFormat:@"%ld", count];
     
+    CGFloat progress = count*1.0/total;
+    [self setProgress:progress animated:YES];
+    _progress = progress;
 }
 
 #pragma mark - setter
@@ -332,6 +329,8 @@
 
 #pragma mark - Animation delegate
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    [self showFinish];
+    if (_progress == 1) {
+        [self showFinish];
+    }
 }
 @end

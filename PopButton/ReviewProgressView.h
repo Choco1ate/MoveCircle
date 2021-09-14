@@ -25,11 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setProgress:(CGFloat)progress animated:(BOOL)animated;
 
-
 /// Update daya
-/// @param score 已学数
-/// @param totalScore 单词总数
-- (void)updateScore:(NSInteger)score totalScore:(NSInteger)totalScore;
+/// @param count 已学数
+/// @param total 单词总数
+- (void)updateCount:(NSInteger)count total:(NSInteger)total;
 @end
 
 NS_ASSUME_NONNULL_END

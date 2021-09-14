@@ -8,4 +8,5 @@ target 'PopButton' do
   # Pods for PopButton
   pod 'pop'
   pod 'ReactiveCocoa', '~> 2.5'
+  pod 'Masonry'
 end

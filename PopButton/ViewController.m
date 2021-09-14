@@ -25,7 +25,7 @@
     _progressView.clockwise = YES;
     [self.view addSubview:_progressView];
     
-    [_progressView setProgress:1 animated:YES];
+    [_progressView updateCount:100 total:100];
     
     
     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height - 100, self.view.bounds.size.width, 100)];
